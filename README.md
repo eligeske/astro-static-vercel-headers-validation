@@ -1,0 +1,1 @@
+# astro-static-vercel-headers-validationa
