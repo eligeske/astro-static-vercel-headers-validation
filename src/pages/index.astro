@@ -5,40 +5,38 @@ import Card from "../components/Card.astro";
 
 <Layout title="Welcome to Astro.">
   <main>
-    <h1>Welcome to <span class="text-gradient">Astro</span></h1>
-    <pre
-      class="instructions"
-      id="headers-response">
+    <h1 style="margin-bottom: 25px">
+      <a href="/">Welcome to <span class="text-gradient">Astro</span></a>
+    </h1>
+    <Card title="Response Header" body="Validate server-side response headers">
+      <pre
+        class="instructions"
+        id="headers-response">
       Fetching document headers
     </pre>
-    <div id="result" class="result"></div>
-    <script>
-      const outputEle = document.getElementById("headers-response");
-      const resultEle = document.getElementById("result");
-      const targetHeader = "x-custom-test";
-      fetch("/").then((resp) => {
-        const jsonHeaders = JSON.stringify(
-          Array.from(resp.headers.keys()).reduce(
-            (obj, k) => ({ ...obj, [k]: resp.headers.get(k) }),
-            {}
-          ),
-          null,
-          "  "
-        );
-        outputEle.innerHTML = jsonHeaders;
-        jsonHeaders.includes(targetHeader)
-          ? !resultEle.classList.add("success") && resultEle.setHTML("Success")
-          : !resultEle.classList.add("fail") &&
-            resultEle.setHTML("Header Not Returned");
-      });
-    </script>
-    <ul role="list" class="link-card-grid">
-      <Card
-        href="https://docs.astro.build/"
-        title="Documentation"
-        body="Learn how Astro works and explore the official API docs."
-      />
-    </ul>
+      <div id="result" class="result"></div>
+      <script>
+        const outputEle = document.getElementById("headers-response");
+        const resultEle = document.getElementById("result");
+        const targetHeader = "x-custom-test";
+        fetch("/").then((resp) => {
+          const jsonHeaders = JSON.stringify(
+            Array.from(resp.headers.keys()).reduce(
+              (obj, k) => ({ ...obj, [k]: resp.headers.get(k) }),
+              {}
+            ),
+            null,
+            "  "
+          );
+          outputEle.innerHTML = jsonHeaders;
+          jsonHeaders.includes(targetHeader)
+            ? !resultEle.classList.add("success") &&
+              resultEle.setHTML("Success")
+            : !resultEle.classList.add("fail") &&
+              resultEle.setHTML("Header Not Returned");
+        });
+      </script>
+    </Card>
   </main>
 </Layout>
 
